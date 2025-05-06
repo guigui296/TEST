@@ -29,15 +29,11 @@
 
 #### ms_cd_get_path :
 
-1.	Si il y a un argument :
-		Si cet argument est "-", "path" devient "OLDPWD" avec la commande "getenv("OLDPWD")".
+1.	Si il y a un argument :\
+		Si cet argument est "-", "path" devient "OLDPWD" avec la commande "getenv("OLDPWD")".\
 			Si ca echoue, free "oldpwd" (malloc avec "getpwd"), affiche l'erreur "cd: OLDPWD not set" et retourne NULL.
-			Sinon on affiche la valeur de "OLDPWD" et on retourne cette valeur comme le chemin cible.
+			Sinon on affiche la valeur de "OLDPWD" et on retourne cette valeur comme le chemin cible.\
 		Si l'argument est autre chose que "-", retourne l'argument en tant que chemin cible.
-
-2.	Si il n'y a pas d'argument, "path" devient "HOME" avec "getenv("HOME")".\
-		Si "HOME" n'existe pas, free "oldpwd" (malloc avec "getpwd"), affiche l'erreur "cd: HOME not set" et retourne NULL.\
-	Sinon retourne la valeur de HOME comme chemin cible.
 
 #### ms_update_oldpwd :
 
