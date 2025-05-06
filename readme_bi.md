@@ -2,7 +2,7 @@
 
 ## CD :
 
-**### ms_bi_cd :**
+### **ms_bi_cd :**
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
