@@ -196,8 +196,13 @@
 
 2.	Compte le nombre de caracteres numeriques.
 
-3.	Si le nombre de caracteres numeriques depasse **`20`**, retourne **`0`** pour dire que ca depasse.
+3.	Si le nombre de caracteres numeriques depasse **`20`**, retourne **`0`**.
 	- Sinon retourne **`1`** pour dire que c'est ok.
+
+
+## UNSET :
+
+### **<ins>ms_bi_unset :</ins>**
 
 
 ## EXPORT :
