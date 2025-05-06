@@ -3,28 +3,28 @@
 ## CD :
 
 #### ms_bi_cd :
-		1.	Verification de data et data->env.
-				Si il n'y a rien, retourne 1.
+1.	Verification de data et data->env.
+			Si il n'y a rien, retourne 1.
 		
-		2.	Verification du nombre d'arguments.
-				Si il y a plus d'un argument, affiche l'erreur "cd: too many arguments" et retourne 1.
+2.	Verification du nombre d'arguments.
+			Si il y a plus d'un argument, affiche l'erreur "cd: too many arguments" et retourne 1.
 
-		3. "oldpwd" devient le chemin courant.
-				Si ca echoue, affiche une erreur avec "perror("getcwd")" et retourne 1.
+3. "oldpwd" devient le chemin courant.
+			Si ca echoue, affiche une erreur avec "perror("getcwd")" et retourne 1.
 		
-		4.	"path" devient le chemin cible a faisant appel a "ms_cd_get_path".
-				Si ca echoue, retourne 1.
+4.	"path" devient le chemin cible a faisant appel a "ms_cd_get_path".
+			Si ca echoue, retourne 1.
 
-		5.	Changement de repertoire avec "chdir(path)".
-				Si ca echoue, free "oldpwd" (malloc avec la fonction "getpwd"), affiche une erreur avec "perror("cd")" et retourne 1.
+5.	Changement de repertoire avec "chdir(path)".
+			Si ca echoue, free "oldpwd" (malloc avec la fonction "getpwd"), affiche une erreur avec "perror("cd")" et retourne 1.
 		
-		6.	Mise a jour de "OLDPWD" en faisant appel a "ms_update_oldpwd".
+6.	Mise a jour de "OLDPWD" en faisant appel a "ms_update_oldpwd".
 
-		7.	Mise a jour de "PWD" en faisant appel a "ms_update_pwd".
+7.	Mise a jour de "PWD" en faisant appel a "ms_update_pwd".
 
-		8.	Free "oldpwd" (malloc avec la fonction "getpwd")
+8.	Free "oldpwd" (malloc avec la fonction "getpwd")
 
-		9.	Retourne 0.
+9.	Retourne 0.
 
 #### ms_cd_get_path :
 
