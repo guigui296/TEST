@@ -4,7 +4,7 @@
 
 ### **<ins>ms_bi_cd :</ins>**
 
-1.	Verification de **`data`** et **`data->env`**.
+**1.**	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
 		
 2.	Verification du nombre d'arguments.
