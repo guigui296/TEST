@@ -3,9 +3,8 @@
 ## CD :
 
 #### ms_bi_cd :
-
-		**1.	Verification de data et data->env.
-				Si il n'y a rien, retourne 1.**
+		1.	Verification de data et data->env.
+				Si il n'y a rien, retourne 1.
 		
 		2.	Verification du nombre d'arguments.
 				Si il y a plus d'un argument, affiche l'erreur "cd: too many arguments" et retourne 1.
