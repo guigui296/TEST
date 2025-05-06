@@ -4,36 +4,40 @@
 
 #### ms_bi_cd :
 
-1.	Verification de data et data->env.\
-		Si il n'y a rien, retourne 1.
+1.	Verification de **`data`** et **`data->env`**.
+	- Si il n'y a rien, retourne **`1`**.
 		
-2.	Verification du nombre d'arguments.\
-		Si il y a plus d'un argument, affiche l'erreur "cd: too many arguments" et retourne 1.
+2.	Verification du nombre d'arguments.
+	- Si il y a plus d'un argument, affiche l'erreur **"`cd: too many arguments`"** et retourne **`1`**.
 
-3.	"oldpwd" devient le chemin courant.\
-		Si ca echoue, affiche une erreur avec "perror("getcwd")" et retourne 1.
+3.	**`oldpwd`** devient le chemin courant.
+	- Si ca echoue, affiche une erreur avec **"`perror("getcwd")`"** et retourne **`1`**.
 		
-4.	"path" devient le chemin cible a faisant appel a "ms_cd_get_path".\
-		Si ca echoue, retourne 1.
+4.	**`path`** devient le chemin cible a faisant appel a **`ms_cd_get_path`**.
+	- Si ca echoue, retourne **`1`**.
 
-5.	Changement de repertoire avec "chdir(path)".\
-		Si ca echoue, free "oldpwd" (malloc avec la fonction "getpwd"), affiche une erreur avec "perror("cd")" et retourne 1.
+5.	Changement de repertoire avec **`chdir(path)`**.
+	- Si ca echoue, free **`oldpwd`** (malloc avec la fonction **`getpwd`**), affiche une erreur avec **"`perror("cd")`"** et retourne **`1`**.
 		
-6.	Mise a jour de "OLDPWD" en faisant appel a "ms_update_oldpwd".
+6.	Mise a jour de **`OLDPWD`** en faisant appel a **`ms_update_oldpwd`**.
 
-7.	Mise a jour de "PWD" en faisant appel a "ms_update_pwd".
+7.	Mise a jour de **`PWD`** en faisant appel a **`ms_update_pwd`**.
 
-8.	Free "oldpwd" (malloc avec la fonction "getpwd")
+8.	Free **`oldpwd`** (malloc avec la fonction **`getpwd`**)
 
-9.	Retourne 0.
+9.	Retourne **`0`**.
 
 #### ms_cd_get_path :
 
-1.	Si il y a un argument :\
-		Si cet argument est "-", "path" devient "OLDPWD" avec la commande "getenv("OLDPWD")".\
-			Si ca echoue, free "oldpwd" (malloc avec "getpwd"), affiche l'erreur "cd: OLDPWD not set" et retourne NULL.
-			Sinon on affiche la valeur de "OLDPWD" et on retourne cette valeur comme le chemin cible.\
-		Si l'argument est autre chose que "-", retourne l'argument en tant que chemin cible.
+1.	Si il y a un argument :
+	- Si cet argument est **`-`**, **`path`** devient **`OLDPWD`** avec la commande **`getenv("OLDPWD")`**.
+	  - Si ca echoue, free **`oldpwd`** (malloc avec **`getpwd`**), affiche l'erreur "**`cd: OLDPWD not set`**" et retourne **`NULL`**.
+		- Sinon on affiche la valeur de **`OLDPWD`** et on retourne cette valeur comme le chemin cible.
+	  - Si l'argument est autre chose que **`-`**, retourne l'argument en tant que chemin cible.
+
+2.	Si il n'y a pas d'argument, **`path`** devient **`HOME`** avec **`getenv("HOME")`**.
+	- Si **`HOME`** n'existe pas, free **`oldpwd`** (malloc avec **`getpwd`**), affiche l'erreur "**`cd: HOME not set`**" et retourne **`NULL`**.
+	- Sinon retourne la valeur de **`HOME`** <ins>comme chemin cible</ins>.
 
 #### ms_update_oldpwd :
 
