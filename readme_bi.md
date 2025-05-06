@@ -2,7 +2,7 @@
 
 ## CD :
 
-### **ms_bi_cd :**
+### **<ins>ms_bi_cd :</ins>**
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -27,7 +27,7 @@
 
 9.	Retourne **`0`**.
 
-### **ms_cd_get_path :**
+### **<ins>ms_cd_get_path :</ins>**
 
 1.	Si il y a un argument :
 	- Si cet argument est **`-`**, **`path`** devient **`OLDPWD`** avec la commande **`getenv("OLDPWD")`**.
@@ -39,7 +39,7 @@
 	- Si **`HOME`** n'existe pas, free **`oldpwd`** (malloc avec **`getpwd`**), affiche l'erreur "**`cd: HOME not set`**" et retourne **`NULL`**.
 	- Sinon retourne la valeur de **`HOME`** <ins>comme chemin cible</ins>.
 
-### **ms_update_oldpwd :**
+### **<ins>ms_update_oldpwd :</ins>**
 
 1.	Verification de **`data`**, **`data->env`** et **`oldpwd`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -59,7 +59,7 @@
 
 5.	**`data->env`** devient **`new_env`** (la copie avec **`OLDPWD`**) et retourne **`0`** pour dire que tout s'est bien passe.
 
-### **ft_realloc_env :**
+### **<ins>ft_realloc_env :</ins>**
 
 1.	Compte le nombre d'arguments dans **`env`** avec pour index **`i`**.
 
@@ -71,7 +71,7 @@
 
 5.	Free l'ancien tableau (**`env`**) et retourne **`new_env`**.
 
-### **ms_uptade_pwd :**
+### **<ins>ms_uptade_pwd :</ins>**
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -83,7 +83,7 @@
 
 4.	Free **`cwd`** (malloc avec **`getcwd`**) et retourne **`res`** (0) si tout a bien fonctionne.
 
-### **ms_replace_pwd_in_env :**
+### **<ins>ms_replace_pwd_in_env :</ins>**
 
 1.	Chercher **PWD=** dans **data->env[i]**.
 	- Si **`PWD=`** est trouve :
@@ -97,7 +97,7 @@
 
 ## ECHO :
 
-### **ms_bi_echo :**
+### **<ins>ms_bi_echo :</ins>**
 
 1.	Initialisation de **`i`** a **`1`** pour ignorer le nom de la commande, et **`new_line`** a **`1`** pour ajouter par defaut un retour a la ligne.
 
@@ -111,7 +111,7 @@
 
 5.	Retourne **`0`**.
 
-### **check_n_args :**
+### **<ins>check_n_args :</ins>**
 
 1.	Verification de **`str`** et que **`str[0]`** est **`-`**.
 	- Si il n'y a rien ou que **`str[0]`** n'est pas **`-`**, retourne **`0`**.
@@ -124,7 +124,7 @@
 
 ## ENV :
 
-### **ms_bi_env :**
+### **<ins>ms_bi_env :</ins>**
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -140,7 +140,7 @@
 
 ## PWD :
 
-### **ms_bi_pwd :**
+### **<ins>ms_bi_pwd :</ins>**
 
 1.	Initialisation du tableau **`cwd[PATH_MAX]`** (Taille maximale d'un chemin).
 
@@ -152,7 +152,7 @@
 
 ## EXIT :
 
-### **ms_bi_exit :**
+### **<ins>ms_bi_exit :</ins>**
 
 1.	Affiche **`exit`** comme le vrai bash.
 
