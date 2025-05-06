@@ -37,7 +37,7 @@
 
 2.	Si il n'y a pas d'argument, **`path`** devient **`HOME`** avec **`getenv("HOME")`**.
 	- Si **`HOME`** n'existe pas, free **`oldpwd`** (malloc avec **`getpwd`**), affiche l'erreur "**`cd: HOME not set`**" et retourne **`NULL`**.
-	- Sinon retourne la valeur de **`HOME`** <ins>comme chemin cible</ins>.
+	- Sinon retourne la valeur de **`HOME`** comme chemin cible.
 
 ### **<ins>ms_update_oldpwd :</ins>**
 
@@ -166,4 +166,40 @@
 5.	Verifie qu'il n'y a pas plus d'un argument apres **`exit`**.
 	- Si il y a plus d'un argument, affiche l'erreur "**`exit: too many arguments`**" et retourne **`1`** sans quitter immediatement.
 	
-6.	
+6.	Verifie que ma chaine ne depasse pas d'un **`long long`** en utilisant **`ms_atoll`**.
+	- Si ca echoue ou que ca deborde, affiche l'erreur "**`exit: %s: numeric argument required`**" et termine avec **`exit(255)`**.
+
+7.	Quitte avec **`exit((unsigned char)exit_code)`** caste en **`unsigned char`** pour etre dans la plage **`0 - 255`**.
+
+### **<ins>ms_atoll :</ins>**
+
+1.	Verification que la chaine entre dans un **`long long`** avec **`ms_check_count`**.
+	- Si ca depasse, retourne **`0`**.
+
+2.	Verification si **`*str`** est un **`-`** ou un **`+`**.
+	- Si **`*str`** est un **`-`**, on modifie **`sign`** pour appliquer le signe negatif.
+	- Avance le pointeur pour ignorer le signe.
+
+3.	Conversion des caracteres.
+	- Si un caractere non numerique est trouve, retourne **`0`**.
+	- Si **`res`** depasse **`LLONG_MAX`**, retourne **`0`**.
+	- **`res`** devient **`res * 10 + (*str - '0')`**
+	- On recommence l'operation jusqu'a ce au'on ne puisse plus.
+
+4.	**`*result`** devient **`res * sign`**.
+
+5.	Retourne **`1`** pour dire que c'est ok.
+
+### **<ins>ms_check_count :</ins>**
+
+1.	Ignore les signes **`-`** et **`+`**.
+
+2.	Compte le nombre de caracteres numeriques.
+
+3.	Si le nombre de caracteres numeriques depasse **`20`**, retourne **`0`** pour dire que ca depasse.
+	- Sinon retourne **`1`** pour dire que c'est ok.
+
+
+## EXPORT :
+
+### **<ins>ms_bi_export :</ins>**
