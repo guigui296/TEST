@@ -1,8 +1,33 @@
 # Built-in documentation
 
-## CD :
+## **Sommaire**
+- [Built-in: cd](#cd)
+- [Built-in: echo](#echo)
+- [Built-in: env](#env)
+- [Built-in: pwd](#pwd)
+- [Built-in: exit](#exit)
+- [Built-in: unset](#unset)
+- [Built-in: export](#export)
+
+---
+
+## CD
+
+## **Resume :**
+
+**`cd`** permet de changer le repertoire courant du shell grace a **`chdir()`** qui permet de faire le changement de dossier.\
+Met egalement a jour automatiquement les variables d'environnement **`$OLDPWD`** (ancien repertoire) et **`$PWD`** (nouveau repertoire) en utilisant **`getcwd()`**.
+- **`cd`** sans arguments : va dans le dossier contenu dans **`$HOME`**.
+- **`cd <path>`** va vers le chemin specifie.
+- **`cd -`** revient au dernier repertoire contenu dans **`$OLDPWD`** et l'affiche.
+
+---
 
 ### **<ins>ms_bi_cd :</ins>**
+
+```c
+int	ms_bi_cd(char **args, t_data *data)
+```
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -27,7 +52,13 @@
 
 9.	Retourne **`0`**.
 
+---
+
 ### **<ins>ms_cd_get_path :</ins>**
+
+```c
+static char	*ms_cd_get_path(char **args, char *oldpwd)
+```
 
 1.	Si il y a un argument :
 	- Si cet argument est **`-`**, **`path`** devient **`OLDPWD`** avec la commande **`getenv("OLDPWD")`**.
@@ -39,7 +70,13 @@
 	- Si **`HOME`** n'existe pas, free **`oldpwd`** (malloc avec **`getpwd`**), affiche l'erreur "**`cd: HOME not set`**" et retourne **`NULL`**.
 	- Sinon retourne la valeur de **`HOME`** comme chemin cible.
 
+---
+
 ### **<ins>ms_update_oldpwd :</ins>**
+
+```c
+static int	ms_update_oldpwd(t_data *data, char *oldpwd)
+```
 
 1.	Verification de **`data`**, **`data->env`** et **`oldpwd`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -59,7 +96,13 @@
 
 5.	**`data->env`** devient **`new_env`** (la copie avec **`OLDPWD`**) et retourne **`0`** pour dire que tout s'est bien passe.
 
+---
+
 ### **<ins>ft_realloc_env :</ins>**
+
+```c
+char	**ms_realloc_env(char **env, char *new_var)
+```
 
 1.	Compte le nombre d'arguments dans **`env`** avec pour index **`i`**.
 
@@ -71,7 +114,13 @@
 
 5.	Free l'ancien tableau (**`env`**) et retourne **`new_env`**.
 
+---
+
 ### **<ins>ms_uptade_pwd :</ins>**
+
+```c
+static int	ms_update_pwd(t_data *data)
+```
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -83,7 +132,13 @@
 
 4.	Free **`cwd`** (malloc avec **`getcwd`**) et retourne **`res`** (0) si tout a bien fonctionne.
 
+---
+
 ### **<ins>ms_replace_pwd_in_env :</ins>**
+
+```c
+static int	ms_replace_pwd_in_env(t_data *data, char *cwd)
+```
 
 1.	Chercher **PWD=** dans **data->env[i]**.
 	- Si **`PWD=`** est trouve :
@@ -94,10 +149,23 @@
 
 2.	Retourne **`0`** pour dire que tout s'est bien passe.
 
+---
+- [Retourner au sommaire](#sommaire)
+---
 
-## ECHO :
+## ECHO
+
+## **Resume :**
+
+En cours d'ecriture.
+
+---
 
 ### **<ins>ms_bi_echo :</ins>**
+
+```c
+int	ms_bi_echo(char **args)
+```
 
 1.	Initialisation de **`i`** a **`1`** pour ignorer le nom de la commande, et **`new_line`** a **`1`** pour ajouter par defaut un retour a la ligne.
 
@@ -111,7 +179,13 @@
 
 5.	Retourne **`0`**.
 
+---
+
 ### **<ins>check_n_args :</ins>**
+
+```c
+static int	check_n_args(char *str)
+```
 
 1.	Verification de **`str`** et que **`str[0]`** est **`-`**.
 	- Si il n'y a rien ou que **`str[0]`** n'est pas **`-`**, retourne **`0`**.
@@ -121,10 +195,23 @@
 
 3.	Retourne **`1`** si la chaine correspond a **`-n`** ou **`-nnnnnnnn...`**.
 
+---
+ - [Retourner au sommaire](#sommaire)
+---
 
-## ENV :
+## ENV
+
+## **Resume :**
+
+En cours d'ecriture.
+
+---
 
 ### **<ins>ms_bi_env :</ins>**
+
+```c
+int	ms_bi_env(char **args, t_data *data)
+```
 
 1.	Verification de **`data`** et **`data->env`**.
 	- Si il n'y a rien, retourne **`1`**.
@@ -137,10 +224,23 @@
 
 4. Retourne **`0`** pour dire que tout s'est bien passe.
 
+---
+- [Retourner au sommaire](#sommaire)
+---
 
-## PWD :
+## PWD
+
+## **Resume :**
+
+En cours d'ecriture.
+
+---
 
 ### **<ins>ms_bi_pwd :</ins>**
+
+```c
+int	ms_bi_pwd(void)
+```
 
 1.	Initialisation du tableau **`cwd[PATH_MAX]`** (Taille maximale d'un chemin).
 
@@ -149,10 +249,23 @@
 
 3.	En cas d'echec, retourne **`1`**.
 
+---
+- [Retourner au sommaire](#sommaire)
+---
 
-## EXIT :
+## EXIT
+
+## **Resume :**
+
+En cours d'ecriture.
+
+---
 
 ### **<ins>ms_bi_exit :</ins>**
+
+```c
+int	ms_bi_exit(char **args, t_data *data)
+```
 
 1.	Affiche **`exit`** comme le vrai bash.
 
@@ -171,7 +284,13 @@
 
 7.	Quitte avec **`exit((unsigned char)exit_code)`** caste en **`unsigned char`** pour etre dans la plage **`0 - 255`**.
 
+---
+
 ### **<ins>ms_atoll :</ins>**
+
+```c
+static int	ms_atoll(const char *str, long long *result)
+```
 
 1.	Verification que la chaine entre dans un **`long long`** avec **`ms_check_count`**.
 	- Si ca depasse, retourne **`0`**.
@@ -190,7 +309,13 @@
 
 5.	Retourne **`1`** pour dire que c'est ok.
 
+---
+
 ### **<ins>ms_check_count :</ins>**
+
+```c
+static int	ms_check_count(const char *str)
+```
 
 1.	Ignore les signes **`-`** et **`+`**.
 
@@ -199,12 +324,81 @@
 3.	Si le nombre de caracteres numeriques depasse **`20`**, retourne **`0`**.
 	- Sinon retourne **`1`** pour dire que c'est ok.
 
+---
+- [Retourner au sommaire](#sommaire)
+---
 
-## UNSET :
+## UNSET
+
+## **Resume :**
+
+En cours d'ecriture.
+
+---
 
 ### **<ins>ms_bi_unset :</ins>**
 
+```c
+int	ms_bi_unset(char **args, t_data *data)
+```
 
-## EXPORT :
+Explication en cours d'ecriture.
+
+---
+
+### **<ins>is_valid_key</ins>**
+
+```c
+int	is_valid_key(const char *str)
+```
+
+Explication en cours d'ecriture.
+
+---
+
+### **<ins>remove_env_var</ins>**
+
+```c
+static void	remove_env_var(char ***env, const char *key)
+```
+
+Explication en cours d'ecriture.
+
+---
+
+### **<ins>env_len</ins>**
+
+```c
+static int	env_len(char **env)
+```
+
+Explication en cours d'ecriture.
+
+---
+
+### **<ins>key_matches</ins>**
+
+```c
+static int	key_matches(const char *env_entry, const char *key)
+```
+
+Explication en cours d'ecriture.
+
+---
+- [Retourner au sommaire](#sommaire)
+---
+
+## EXPORT
+
+## **Resume :**
+
+
+---
 
 ### **<ins>ms_bi_export :</ins>**
+
+
+
+---
+- [Retourner au sommaire](#sommaire)
+---
