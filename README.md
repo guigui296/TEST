@@ -1,15 +1,15 @@
 # Built-in documentation
 
 ## **Sommaire**
-|          Built-in            |     Tableau des tests     |
-|:----------------------------:|:-------------------------:|
-| [Built-in: cd](#cd)          | [Test: cd](#test-cd)      |
-| [Built-in: echo](#echo)      | [Test: exit](#test-exit)  |
-| [Built-in: env](#env)        |
-| [Built-in: pwd](#pwd)        |
-| [Built-in: exit](#exit)      |
-| [Built-in: unset](#unset)    |
-| [Built-in: export](#export)  |
+|      Built-in      |    Tableau des tests    |
+|:------------------:|:-----------------------:|
+| [CD](#cd)          | [CD](#test-cd)          |
+| [ECHO](#echo)      | [ECHO](#test-echo)      |
+| [ENV](#env)        | [ENV](#tes-env)         |
+| [PWD](#pwd)        | [PWD](#test-pwd)        |
+| [EXIT](#exit)      | [EXIT](#test-exit)      |
+| [UNSET](#unset)    | [UNSET](#test-unset)    |
+| [EXPORT](#export)  | [EXPORT](#test-export)  |
 
 ---
 
