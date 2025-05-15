@@ -2,7 +2,7 @@
 
 ## **Sommaire**
 |          Built-in            |     Tableau des tests     |
-|------------------------------|---------------------------|
+|:----------------------------:|:-------------------------:|
 | [Built-in: cd](#cd)          | [Test: cd](#test-cd)      |
 | [Built-in: echo](#echo)      | [Test: exit](#test-exit)  |
 | [Built-in: env](#env)        |
