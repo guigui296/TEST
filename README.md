@@ -459,6 +459,55 @@ Explication en cours d'ecriture.
 - [Retourner au sommaire](#sommaire)
 ---
 
+### Test ECHO
+
+| Commande                       | Géré      | Sortie attendue                                              | Code de sortie |  Test  |
+|--------------------------------|:---------:|--------------------------------------------------------------|:--------------:|:------:|
+| `echo hola`                    | Oui       | `hola`                                                       | 0              |   ❌   |
+| `echo -n hola`                 | Oui       | `hola` (sans retour à la ligne)                              | 0              |   ❌   |
+| `echo -nnnnn hola`             | Oui       | `hola` (sans retour à la ligne)                              | 0              |   ❌   |
+| `echo -n -n -n hola`           | Oui       | `hola` (sans retour à la ligne)                              | 0              |   ❌   |
+| `echo`                         | Oui       | Ligne vide (juste un retour à la ligne)                      | 0              |   ❌   |
+| `echo -n`                      | Oui       | Ligne vide (sans retour à la ligne)                          | 0              |   ❌   |
+| `echo -n -n`                   | Oui       | Ligne vide (sans retour à la ligne)                          | 0              |   ❌   |
+| `echo -n -n -n`                | Oui       | Ligne vide (sans retour à la ligne)                          | 0              |   ❌   |
+| `echo -n -nn -n -n hola`       | Oui       | `-nn -n -n hola` (seul le premier `-n` est interprété)       | 0              |   ❌   |
+| `echo -nnn -nnnn -nn hola`     | NON GERE  | `-nnn -nnnn -nn hola`                                        | 0              |   ❌   |
+| `echo -nnnnnnn hola`           | NON GERE  | `-nnnnnnn hola`                                              | 0              |   ❌   |
+| `echo hola`                    | Oui       | `hola`                                                       | 0              |   ❌   |
+| `echo -n hola`                 | Oui       | `hola` (sans retour à la ligne)                              | 0              |   ❌   |
+| `echo hola que tal`            | Oui       | `hola que tal`                                               | 0              |   ❌   |
+| `echo hola ""`                 | Oui       | `hola`                                                       | 0              |   ❌   |
+| `echo ""`                      | Oui       | Ligne vide                                                   | 0              |   ❌   |
+| `echo ''`                      | Oui       | Ligne vide                                                   | 0              |   ❌   |
+| `echo "" hola`                 | Oui       | ` hola`                                                      | 0              |   ❌   |
+| `echo '' hola`                 | Oui       | ` hola`                                                      | 0              |   ❌   |
+| `echo hola "" hola`            | Oui       | `hola  hola`                                                 | 0              |   ❌   |
+| `echo hola '' hola`            | Oui       | `hola  hola`                                                 | 0              |   ❌   |
+| `echo hola """" hola`          | Oui       | `hola  hola`                                                 | 0              |   ❌   |
+| `echo hola ''"" hola`          | Oui       | `hola  hola`                                                 | 0              |   ❌   |
+| `echo hola ""'' hola`          | Oui       | `hola  hola`                                                 | 0              |   ❌   |
+
+---
+- [Retourner au sommaire](#sommaire)
+---
+
+### Test ENV
+
+| Commande                 | Géré      | Sortie attendue                                          | Code de sortie | Test |
+|--------------------------|:---------:|----------------------------------------------------------|:--------------:|:----:|
+| `env`                    | Oui       | Affiche toutes les variables d’environnement             | 0              | ❌   |
+| `env hola`               | NON GERE  | `env: ‘hola’: No such file or directory`                 | 127            | ❌   |
+| `env -i`                 | NON GERE  | Aucune variable affichée (environnement vide)            | 0              | ❌   |
+| `env -i hola=bonjour`    | NON GERE  | Aucune sortie affichée                                   | 0              | ❌   |
+| `env -i hola=bonjour env`| NON GERE  | Affiche `hola=bonjour`                                   | 0              | ❌   |
+| `env hola=bonjour`       | NON GERE  | Lance `bonjour` avec une variable `hola` (bash behavior) | 127            | ❌   |
+| `env -i env`             | NON GERE  | N’affiche rien (aucune variable)                         | 0              | ❌   |
+
+---
+- [Retourner au sommaire](#sommaire)
+---
+
 ### Test EXIT
 
 | Commande                       | Géré | Sortie attendue                                                                                    | Code de sortie | Test |
@@ -506,6 +555,142 @@ Explication en cours d'ecriture.
 | `exit 9223372036854775808`     | Oui  | `bash: exit: 9223372036854775808: numeric argument required`                                       | 2              |  ❌  |
 | `exit -9223372036854775808`    | Oui  | `exit`                                                                                             | 0              |  ❌  |
 | `exit -9223372036854775809`    | Oui  | `bash: exit: -9223372036854775809: numeric argument required`                                      | 2              |  ❌  |
+
+---
+- [Retourner au sommaire](#sommaire)
+---
+
+### Test EXPORT
+
+| Commande                     | Géré      | Sortie attendue                                              | Code de sortie | Test |
+|------------------------------|:---------:|--------------------------------------------------------------|:--------------:|:----:|
+| `export`                     | Oui       | Affiche toutes les variables exportées                       | 0              | ❌   |
+| `export hola`                | Oui       | Ajoute une variable vide `hola`                              | 0              | ❌   |
+| `export hola=bonjour`        | Oui       | Ajoute une variable avec une valeur                          | 0              | ❌   |
+| `export 1hola=bonjour`       | Oui       | `export: 1hola: not a valid identifier`                      | 1              | ❌   |
+| `export =bonjour`            | Oui       | `export: =bonjour: not a valid identifier`                   | 1              | ❌   |
+| `export ho=la=bonjour`       | Oui       | Définit `ho=la=bonjour`                                      | 0              | ❌   |
+| `export hola=bonjour HOLA=BONJOUR` | Oui | Ajoute deux variables                                        | 0              | ❌   |
+| `export hola+=bonjour`       | NON GERE  | Comportement non pris en charge                              | 0              | ❌   |
+| `export _=bonjour`           | NON GERE  | Variable spéciale `_` non gérée                              | 0              | ❌   |
+| `export ""`                  | NON GERE  | `export: '': not a valid identifier`                         | 1              | ❌   |
+| `export =`                   | NON GERE  | `export: '=': not a valid identifier`                        | 1              | ❌   |
+| `export %`                   | NON GERE  | `export: '%': not a valid identifier`                        | 1              | ❌   |
+| `export $?`                  | NON GERE  | `export: '0': not a valid identifier`                        | 1              | ❌   |
+| `export ?=2`                 | NON GERE  | `export: '?=2': not a valid identifier`                      | 1              | ❌   |
+| `export 9HOLA=`              | NON GERE  | `export: '9HOLA=': not a valid identifier`                   | 1              | ❌   |
+| `export HOL@=bonjour`        | NON GERE  | `export: 'HOL@=bonjour': not a valid identifier`             | 1              | ❌   |
+| `export HOL~A=bonjour`       | NON GERE  | `export: 'HOL~A=bonjour': not a valid identifier`            | 1              | ❌   |
+| `export -HOLA=bonjour`       | NON GERE  | `export: -H: invalid option`                                 | 2              | ❌   |
+| `export --HOLA=bonjour`      | NON GERE  | `export: --: invalid option`                                 | 2              | ❌   |
+| `export HOLA-=bonjour`       | NON GERE  | `export: 'HOLA-=bonjour': not a valid identifier`            | 1              | ❌   |
+| `export HO-LA=bonjour`       | NON GERE  | `export: 'HO-LA=bonjour': not a valid identifier`            | 1              | ❌   |
+| `export HOL.A=bonjour`       | NON GERE  | `export: 'HOL.A=bonjour': not a valid identifier`            | 1              | ❌   |
+| `export HOL\$A=bonjour`      | NON GERE  | `export: 'HOL\$A=bonjour': not a valid identifier`           | 1              | ❌   |
+| `export HO\\LA=bonjour`      | NON GERE  | `export: 'HO\\LA=bonjour': not a valid identifier`           | 1              | ❌   |
+| `export HOL}A=bonjour`       | NON GERE  | `export: 'HOL}A=bonjour': not a valid identifier`            | 1              | ❌   |
+| `export Hola`                | Oui       | Ajoute `Hola` sans valeur                                    | 0              | ❌   |
+| `export Hola9hey`            | Oui       | Ajoute une variable valide                                   | 0              | ❌   |
+| `export HOLA9=bonjour`       | Oui       | Ajoute `HOLA9`                                               | 0              | ❌   |
+| `export _HOLA=bonjour`       | Oui       | Ajoute `_HOLA`                                               | 0              | ❌   |
+| `export ___HOLA=bonjour`     | Oui       | Ajoute `___HOLA`                                             | 0              | ❌   |
+| `export _HO_LA_=bonjour`     | Oui       | Ajoute `_HO_LA_`                                             | 0              | ❌   |
+| `export $DONTEXIST`          | Oui       | Variable non importée                                        | 0              | ❌   |
+| `export HOLA | echo hola`    | Oui       | `hola` affiché (commande exécutée après export)              | 0              | ❌   |
+| `export | echo hola`         | Oui       | `hola` affiché                                               | 0              | ❌   |
+
+---
+- [Retourner au sommaire](#sommaire)
+---
+
+### Test PWD
+
+| Commande                  | Géré      | Sortie attendue                                                       | Code de sortie |  Test  |
+|---------------------------|:---------:|-----------------------------------------------------------------------|:--------------:|:------:|
+| `pwd`                     | Oui       | Affiche le chemin courant (`$PWD`)                                    | 0              | ❌     |
+| `pwd hola`                | Oui       | Affiche le chemin courant (arguments ignorés)                         | 0              | ❌     |
+| `pwd ./hola`              | Oui       | Affiche le chemin courant                                             | 0              | ❌     |
+| `pwd hola que tal`        | Oui       | Affiche le chemin courant                                             | 0              | ❌     |
+| `pwd -p`                  | Oui       | `bash: pwd: -p: invalid option`                                       | 2              | ❌     |
+| `pwd --p`                 | Oui       | `bash: pwd: --: invalid option`                                       | 2              | ❌     |
+| `pwd ---p`                | Oui       | `bash: pwd: --: invalid option`                                       | 2              | ❌     |
+| `pwd -- p`                | NON GERE  | Affiche le chemin courant                                             | 0              | ❌     |
+| `pwd pwd pwd`             | Oui       | Affiche une seule fois le chemin courant                              | 0              | ❌     |
+| `pwd ls`                  | Oui       | Affiche le chemin courant                                             | 0              | ❌     |
+| `pwd ls env`              | Oui       | Affiche le chemin courant                                             | 0              | ❌     |
+| `> pwd`                   | Oui       | Crée un fichier `pwd`                                                 | 0              | ❌     |
+| `< pwd`                   | Oui       | `bash: pwd: No such file or directory`                                | 1              | ❌     |
+| `cat <pwd`                | Oui       | `bash: pwd: No such file or directory`                                | 1              | ❌     |
+| `cat <srcs/pwd`           | Oui       | `bash: srcs/pwd: No such file or directory`                           | 1              | ❌     |
+| `mkdir a && mkdir a/b && cd a/b && rm -r ../../a && pwd` | Oui  | `pwd: error retrieving current directory: getcwd: cannot access...` | 1              | ❌     |
+| `pwd && ls`               | NON GERE  | Affiche le chemin courant puis la liste de fichiers                  | 0              | ❌     |
+| `pwd || ls`               | NON GERE  | Affiche uniquement le chemin courant                                 | 0              | ❌     |
+| `pwd && ls && echo hola`  | NON GERE  | Affiche chemin courant, fichiers, puis `hola`                        | 0              | ❌     |
+| `pwd || ls && echo hola`  | NON GERE  | Affiche chemin courant puis `hola`                                   | 0              | ❌     |
+| `pwd && ls || echo hola`  | NON GERE  | Affiche chemin et fichiers                                           | 0              | ❌     |
+| `pwd || ls || echo hola`  | NON GERE  | Affiche chemin courant                                               | 0              | ❌     |
+| `(pwd | wc)`              | NON GERE  | Affiche le résultat de `wc` sur le chemin                            | 0              | ❌     |
+| `(ls && pwd | wc)`        | NON GERE  | Affiche la sortie combinée et son `wc`                               | 0              | ❌     |
+| `(ls && pwd | wc) > hola` | NON GERE  | Résultat écrit dans le fichier `hola`                                | 0              | ❌     |
+| `(pwd | wc) < hola`       | NON GERE  | Donne la sortie `wc` même si l’entrée ne contient pas pwd            | 0              | ❌     |
+| `(ls -z || pwd | wc) < hola` | NON GERE | Affiche erreur `ls`, puis chemin, puis wc                          | 0              | ❌     |
+| `(ls > Docs/hey && pwd) > hola` | NON GERE | Chemin écrit dans hola                                          | 0              | ❌     |
+| `ls > Docs/hey && pwd > hola` | NON GERE  | Idem                                                             | 0              | ❌     |
+| `cd ../.. && pwd && pwd`  | NON GERE  | Affiche deux chemins                                                 | 0              | ❌     |
+| `(cd ../.. && pwd) && pwd`| NON GERE  | Affiche chemin modifié puis chemin courant                           | 0              | ❌     |
+| `ls -z || cd ../../.. && pwd` | NON GERE | Affiche chemin après erreur                                       | 0              | ❌     |
+| `ls -z || (cd ../../.. && pwd)` | NON GERE | Idem avec sous-shell                                            | 0              | ❌     |
+
+---
+- [Retourner au sommaire](#sommaire)
+---
+
+### Test UNSET
+
+| Commande                   | Géré      | Sortie attendue                                                | Code de sortie |  Test  |
+|----------------------------|:---------:|----------------------------------------------------------------|:--------------:|:------:|
+| `unset HOLA`               | Oui       | Supprime la variable HOLA                                      | 0              | ❌     |
+| `unset HOLA HOLA2`         | Oui       | Supprime plusieurs variables                                   | 0              | ❌     |
+| `unset HOLA HOLA HOLA`     | Oui       | Supporte les doublons                                          | 0              | ❌     |
+| `unset`                    | Oui       | Ne fait rien                                                   | 0              | ❌     |
+| `unset INEXISTANT`         | Oui       | Ne renvoie pas d'erreur                                        | 0              | ❌     |
+| `unset 9HOLA`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOLA=`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL@`               | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL^A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL#A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL!A`              | Oui       | `event not found`                                              | 1              | ❌     |
+| `unset HOL$?A`             | Oui       | Utilise la valeur de $? dans le nom                            | 0              | ❌     |
+| `unset $HOLA`              | Oui       | Interprète la variable HOLA                                    | 0              | ❌     |
+| `unset $PWD`               | Oui       | Interprète comme nom de répertoire                             | 1              | ❌     |
+| `unset HOLA HOL?A`         | Oui       | Supprime HOLA et affiche erreur pour HOL?A                     | 1              | ❌     |
+| `unset HOL.A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL-A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL+A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL=A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL{A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL}A`              | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset HOL\\A`             | NON GERE  | `not a valid identifier` (échappement mal géré)                | 1              | ❌     |
+| `unset HOL;A`              | NON GERE  | `command not found`                                            | 127            | ❌     |
+| `unset -HOLA`              | Oui       | `invalid option`                                               | 2              | ❌     |
+| `unset _HOLA`              | Oui       | OK                                                             | 0              | ❌     |
+| `unset HOL_A`              | Oui       | OK                                                             | 0              | ❌     |
+| `unset HOLA_`              | Oui       | OK                                                             | 0              | ❌     |
+| `unset _______`            | Oui       | OK                                                             | 0              | ❌     |
+| `unset PATH`               | Oui       | Supprime PATH, empêche les binaires de s'exécuter              | 0              | ❌     |
+| `unset PATH && ls`         | Oui       | `bash: ls: No such file or directory`                          | 127            | ❌     |
+| `unset ""`                 | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset =`                  | Oui       | `not a valid identifier`                                       | 0              | ❌     |
+| `unset ======`             | Oui       | `not a valid identifier`                                       | 0              | ❌     |
+| `unset ++++++`             | Oui       | `not a valid identifier`                                       | 0              | ❌     |
+| `unset "" HOLA`            | Oui       | HOLA est tout de même unset malgré une erreur sur ""           | 1              | ❌     |
+| `unset HOLA=bonjour`       | Oui       | `not a valid identifier`                                       | 1              | ❌     |
+| `unset export`             | Oui       | Supprime la variable `export` si définie                       | 0              | ❌     |
+| `unset echo`               | Oui       | Supprime la variable `echo` si définie                         | 0              | ❌     |
+| `unset pwd`                | Oui       | Supprime la variable `pwd` si définie                          | 0              | ❌     |
+| `unset cd`                 | Oui       | Supprime la variable `cd` si définie                           | 0              | ❌     |
+| `unset unset`              | Oui       | Supprime la variable `unset` si définie                        | 0              | ❌     |
+| `unset sudo`               | Oui       | Supprime la variable `sudo` si définie                         | 0              | ❌     |
 
 ---
 - [Retourner au sommaire](#sommaire)
