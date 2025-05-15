@@ -624,22 +624,22 @@ Explication en cours d'ecriture.
 | `cat <srcs/pwd`           | Oui       | `bash: srcs/pwd: No such file or directory`                           | 1              | ❌     |
 | `mkdir a && mkdir a/b && cd a/b && rm -r ../../a && pwd` | Oui  | `pwd: error retrieving current directory: getcwd: cannot access...` | 1              | ❌     |
 | `pwd && ls`               | NON GERE  | Affiche le chemin courant puis la liste de fichiers                  | 0              | ❌     |
-| `pwd || ls`               | NON GERE  | Affiche uniquement le chemin courant                                 | 0              | ❌     |
+| `pwd "double pipe" ls`               | NON GERE  | Affiche uniquement le chemin courant                                 | 0              | ❌     |
 | `pwd && ls && echo hola`  | NON GERE  | Affiche chemin courant, fichiers, puis `hola`                        | 0              | ❌     |
-| `pwd || ls && echo hola`  | NON GERE  | Affiche chemin courant puis `hola`                                   | 0              | ❌     |
-| `pwd && ls || echo hola`  | NON GERE  | Affiche chemin et fichiers                                           | 0              | ❌     |
-| `pwd || ls || echo hola`  | NON GERE  | Affiche chemin courant                                               | 0              | ❌     |
-| `(pwd | wc)`              | NON GERE  | Affiche le résultat de `wc` sur le chemin                            | 0              | ❌     |
-| `(ls && pwd | wc)`        | NON GERE  | Affiche la sortie combinée et son `wc`                               | 0              | ❌     |
-| `(ls && pwd | wc) > hola` | NON GERE  | Résultat écrit dans le fichier `hola`                                | 0              | ❌     |
-| `(pwd | wc) < hola`       | NON GERE  | Donne la sortie `wc` même si l’entrée ne contient pas pwd            | 0              | ❌     |
-| `(ls -z || pwd | wc) < hola` | NON GERE | Affiche erreur `ls`, puis chemin, puis wc                          | 0              | ❌     |
+| `pwd "double pipe" ls && echo hola`  | NON GERE  | Affiche chemin courant puis `hola`                                   | 0              | ❌     |
+| `pwd && ls "double pipe" echo hola`  | NON GERE  | Affiche chemin et fichiers                                           | 0              | ❌     |
+| `pwd "double pipe" ls "double pipe" echo hola`  | NON GERE  | Affiche chemin courant                                               | 0              | ❌     |
+| `(pwd "pipe" wc)`              | NON GERE  | Affiche le résultat de `wc` sur le chemin                            | 0              | ❌     |
+| `(ls && pwd "pipe" wc)`        | NON GERE  | Affiche la sortie combinée et son `wc`                               | 0              | ❌     |
+| `(ls && pwd "pipe" wc) > hola` | NON GERE  | Résultat écrit dans le fichier `hola`                                | 0              | ❌     |
+| `(pwd "pipe" wc) < hola`       | NON GERE  | Donne la sortie `wc` même si l’entrée ne contient pas pwd            | 0              | ❌     |
+| `(ls -z "double pipe" pwd "pipe" wc) < hola` | NON GERE | Affiche erreur `ls`, puis chemin, puis wc                          | 0              | ❌     |
 | `(ls > Docs/hey && pwd) > hola` | NON GERE | Chemin écrit dans hola                                          | 0              | ❌     |
 | `ls > Docs/hey && pwd > hola` | NON GERE  | Idem                                                             | 0              | ❌     |
 | `cd ../.. && pwd && pwd`  | NON GERE  | Affiche deux chemins                                                 | 0              | ❌     |
 | `(cd ../.. && pwd) && pwd`| NON GERE  | Affiche chemin modifié puis chemin courant                           | 0              | ❌     |
-| `ls -z || cd ../../.. && pwd` | NON GERE | Affiche chemin après erreur                                       | 0              | ❌     |
-| `ls -z || (cd ../../.. && pwd)` | NON GERE | Idem avec sous-shell                                            | 0              | ❌     |
+| `ls -z "double pipe" cd ../../.. && pwd` | NON GERE | Affiche chemin après erreur                                       | 0              | ❌     |
+| `ls -z "double pipe" (cd ../../.. && pwd)` | NON GERE | Idem avec sous-shell                                            | 0              | ❌     |
 
 ---
 - [Retourner au sommaire](#sommaire)
