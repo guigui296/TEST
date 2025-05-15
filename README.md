@@ -9,8 +9,8 @@
 - [Built-in: unset](#unset)
 - [Built-in: export](#export)
 #### **Tableau des test**
-- [Test: cd](#test cd)
-- [Test: exit](#test exit)
+- [Test: cd](#testcd)
+- [Test: exit](#testexit)
 
 ---
 
