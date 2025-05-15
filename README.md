@@ -596,8 +596,8 @@ Explication en cours d'ecriture.
 | `export ___HOLA=bonjour`     | Oui       | Ajoute `___HOLA`                                             | 0              | ❌   |
 | `export _HO_LA_=bonjour`     | Oui       | Ajoute `_HO_LA_`                                             | 0              | ❌   |
 | `export $DONTEXIST`          | Oui       | Variable non importée                                        | 0              | ❌   |
-| `export HOLA | echo hola`    | Oui       | `hola` affiché (commande exécutée après export)              | 0              | ❌   |
-| `export | echo hola`         | Oui       | `hola` affiché                                               | 0              | ❌   |
+| `export HOLA "pipe" echo hola`    | Oui       | `hola` affiché (commande exécutée après export)         | 0              | ❌   |
+| `export "pipe" echo hola`         | Oui       | `hola` affiché                                          | 0              | ❌   |
 
 ---
 - [Retourner au sommaire](#sommaire)
