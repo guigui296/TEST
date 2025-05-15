@@ -9,8 +9,8 @@
 - [Built-in: unset](#unset)
 - [Built-in: export](#export)
 #### **Tableau des test**
-- [Test: cd](#test_cd)
-- [Test: exit](#test_exit)
+- [Test: cd](#test-cd)
+- [Test: exit](#test-exit)
 
 ---
 
@@ -408,11 +408,11 @@ Explication en cours d'ecriture.
 
 ## Tableau des test built-in
 
----
-
 ### Emoji
 
 ✅ || ❌
+
+---
 
 ### Test CD
 
